@@ -1,16 +1,10 @@
+/////////////////////////////////////////////////////////////////////
+///////////////Add Mustache Minion/////////////////////////////////
+//////////////////////////////////////////////////////////////////// 
+
 var makeBlinkyDancer = function(top, left, timeBetweenSteps){
   MakeDancer.call(this, top, left, timeBetweenSteps);
-  // we plan to overwrite the step function below, but we still want the superclass step behavior to work,
-  // so we must keep a copy of the old version of this function
-
-  // this.step = function(){
-  //   // call the old version of step at the beginning of any call to this new version of step
-  //   this.step();
-  //   // toggle() is a jQuery method to show/hide the <span> tag.
-  //   // See http://api.jquery.com/category/effects/ for this and
-  //   // other effects you can use on a jQuery-wrapped html tag.
-  //   this.$node.toggle();
-  // };
+  
 
   this.oldStep = this.step;
   this.step = function(){
@@ -25,8 +19,52 @@ makeBlinkyDancer.prototype = Object.create(MakeDancer.prototype);
 
 makeBlinkyDancer.prototype.constructor = makeBlinkyDancer;
 
-// makeBlinkyDancer.prototype.blinkyDance =function(){
-//   var oldStep = this.step;
-//   oldStep();
-//   this.$node.toggle();
-// };
+/////////////////////////////////////////////////////////////////////
+///////////////Add Dancing Guitarist/////////////////////////////////
+////////////////////////////////////////////////////////////////////
+
+var squareDancer = function(top, left, timeBetweenSteps){
+  MakeDancer.call(this, top, left, timeBetweenSteps);
+
+  this.$node = $('<span class="squareDancer"></span>');
+  this.oldStep = this.step;
+  this.step = function(){
+    this.oldStep();
+    this.$node.toggle();
+  };
+  this.setPosition(this.top, this.left)
+
+};
+
+squareDancer.prototype = Object.create(MakeDancer.prototype);
+squareDancer.prototype.constructor = squareDancer;
+/*squareDancer.prototype.lineUp = function(){
+  for(var i = 0; i < window.dancers.length; i++){
+     if(window.dancers[i] === ){
+      tis.setPosition(50, 100);
+    }
+  }
+};*/
+
+/////////////////////////////////////////////////////////////////////
+///////////////Add Two Minions Dancing Together//////////////////////
+////////////////////////////////////////////////////////////////////
+
+var extraDancer = function(top, left, timeBetweenSteps){
+  MakeDancer.call(this, top, left, timeBetweenSteps);
+  
+ 
+  this.$node = $('<span class="extraDancer"></span>');
+  this.oldStep = this.step;
+  this.step = function(){
+    this.oldStep();
+    this.$node.toggle();
+  };
+  this.setPosition(this.top, this.left)
+
+};
+
+extraDancer.prototype = Object.create(MakeDancer.prototype);
+
+extraDancer.prototype.constructor = extraDancer;
+

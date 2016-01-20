@@ -146,10 +146,10 @@ $("body").on("click", '.squareDancer', function(event){
      //$(this).css("background-size", "1120px");
     var topValue =$(this).position().top;
     var leftValue = $(this).position().left;
-    var maxleft = $(this).position().left+50; //200     
-    var minleft = $(this).position().left-50;  //0
-    var maxtop = $(this).position().top+50;  //200
-    var mintop = $(this).position().top-50;  //0
+    var maxleft = $(this).position().left+250; //200     
+    var minleft = $(this).position().left-150;  //0
+    var maxtop = $(this).position().top+200;  //200
+    var mintop = $(this).position().top-200;  //0
 
    // console.log(topValue, leftValue, maxleft,minleft,maxtop,mintop);
     console.log($(this));
@@ -160,7 +160,7 @@ $("body").on("click", '.squareDancer', function(event){
      $(x).addClass('animated infinite bounce');
     };
 
-      for(var i=0; i<window.dancers.length; i++){
+      /*for(var i=0; i<window.dancers.length; i++){
         var dancerValue = Math.floor(window.dancers[i].left);
         var thisValue = Math.floor($(this).position().left);
         console.log("dancerValue: ", dancerValue);
@@ -168,24 +168,22 @@ $("body").on("click", '.squareDancer', function(event){
         if(dancerValue === thisValue){
           window.dancers.splice(window.dancers.length[i], 1);
         } 
-      }
+      }*/
 
     //pushes all the dancesr within the radius into arr
     for(var i =0; i<window.dancers.length; i++){
-      //console.log(topValue, dancers[i].top);
-      //console.log($(this).position().top+4)
-      //console.log(dancers[i].$node.position().left)
 
       var dancerLeft=dancers[i].$node.position().left;
       var dancerTop = dancers[i].$node.position().top;
-      var thisLeft = $(this).position().left-1;
-      var thisLeft2 = $(this).position().left+1;
-      var thisTop = $(this).position().top-1;
-      var thisTop2 = $(this).position().top+1;
+      var thisLeft = $(this).position().left-5;
+      var thisLeft2 = $(this).position().left+5;
+      var thisTop = $(this).position().top-5;
+      var thisTop2 = $(this).position().top+5;
 
 
       if( dancerLeft <= maxleft && dancerLeft >= minleft &&
-          dancerTop <= maxtop && dancerTop >= mintop  ){
+          dancerTop <= maxtop && dancerTop >= mintop &&
+          dancerLeft<thisLeft  ){
           //$(this).addClass('animated infinite bounce');
         //console.log(dancers[i].left);
         
@@ -200,7 +198,7 @@ $("body").on("click", '.squareDancer', function(event){
         move(arr[i].$node); 
     }
     if(arr.length>1){
-      move($(this));
+      move(this);
     }
 
 
@@ -208,17 +206,21 @@ $("body").on("click", '.squareDancer', function(event){
 
 
 
-
-
-
-
 $("body").on("mouseover", ".newDancer",function(){
-  console.log("in")
     $(this).css("background-image", "url(\"src/minions/danceTogether.png\")");
 });
-  /*$(function() {
-    $( ".dancer" ).draggable();
-  });*/
+
+$("body").on("mouseover", ".extraDancer",function(){
+    var remove = function(x){
+    // this.oldStep();
+    // this.$node.toggle();
+    $(x).removeClass('animated infinite bounceInRight');
+    };
+    remove(this)
+    
+    
+});
+
 
 
 });

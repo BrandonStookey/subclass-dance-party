@@ -8,9 +8,9 @@ var makeBlinkyDancer = function(top, left, timeBetweenSteps){
 
   this.oldStep = this.step;
   this.step = function(){
-    // this.oldStep();
-    // this.$node.toggle();
-    $('.dancer').addClass('animated infinite bounceInLeft');
+     this.oldStep();
+     this.$node.toggle();
+    //$('.dancer').addClass('animated infinite bounceInLeft');
   };
 
 

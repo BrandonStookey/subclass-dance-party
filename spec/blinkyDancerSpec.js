@@ -6,7 +6,7 @@ describe("blinkyDancer", function() {
 
   beforeEach(function() {
     clock = sinon.useFakeTimers();
-    blinkyDancer = makeBlinkyDancer(10, 20, timeBetweenSteps);
+    blinkyDancer =  new makeBlinkyDancer(10, 20, timeBetweenSteps);
   });
 
   it("should have a jQuery $node object", function(){
@@ -30,6 +30,69 @@ describe("blinkyDancer", function() {
 
       clock.tick(timeBetweenSteps);
       expect(blinkyDancer.step.callCount).to.be.equal(2);
+    });
+  });
+
+});
+
+
+describe("squareDancer", function() {
+
+  var x;
+  var timeBetweenSteps = 100;
+  var clock;
+
+  beforeEach(function() {
+    clock = sinon.useFakeTimers();
+    x =  new squareDancer(10, 20, timeBetweenSteps);
+  });
+
+
+  it("should have constructor squareDancer", function(){
+    //sinon.spy(squareDancer.$node, 'top');
+    //blinkyDancer.step();
+    expect(x.constructor).to.be.equal(squareDancer);
+  });
+  describe("squreDance", function(){
+    it("should call step at least once per second", function(){
+      sinon.spy(x, "step");
+      expect(x.step.callCount).to.be.equal(0);
+      clock.tick(timeBetweenSteps); // ? it seems an extra tick is necessary...
+      clock.tick(timeBetweenSteps);
+
+      expect(x.step.callCount).to.be.equal(1);
+
+    });
+  });
+});
+
+
+describe("extraDancer", function() {
+
+  var y;
+  var timeBetweenSteps = 100;
+  var clock;
+
+  beforeEach(function() {
+    clock = sinon.useFakeTimers();
+    y =  new extraDancer(10, 20, timeBetweenSteps);
+  });
+
+
+  it("should have constructor squareDancer", function(){
+    //sinon.spy(squareDancer.$node, 'top');
+    //blinkyDancer.step();
+    expect(y.constructor).to.be.equal(extraDancer);
+  });
+  describe("squreDance", function(){
+    it("should call step at least once per second", function(){
+      sinon.spy(y, "step");
+      expect(y.step.callCount).to.be.equal(0);
+      clock.tick(timeBetweenSteps); // ? it seems an extra tick is necessary...
+      clock.tick(timeBetweenSteps);
+
+      expect(y.step.callCount).to.be.equal(1);
+
     });
   });
 });

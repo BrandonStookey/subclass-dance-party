@@ -77,25 +77,158 @@ $(".addextraDancerButton").on("click", function(event){
   });
 
 
+/////////////////////////Button 3/////////////////////
+$(".addnewDancerButton").on("click", function(event){
+
+    var dancerMakerFunctionName = $(this).data("dancer-maker-function-name-new");
+
+    // get the maker function for the kind of dancer we're supposed to make
+    var dancerMakerFunction = window[dancerMakerFunctionName];
+
+    // make a dancer with a random position
+
+    var dancer = new dancerMakerFunction(
+      $("body").height() * Math.random(),
+      $("body").width() * Math.random(),
+      Math.random() * 1000
+    );
+
+    window.dancers.push(dancer);
+    $('body').append(dancer.$node);
+  });
+
+
 /////////////////////////Button 4/////////////////////
 
-$(".addSquareDancerLineUp").on("click", function(event){
-    /*var line = function (){
-      $('.squareDancer, .dancer,.extraDancer').css('left', '100px');
-      $('.extraDancer').css('left', '100px');
-      $('.dancer').css('top', '100px');
+$(".BDLineUp").on("click", function(event){
+     for(var i=0; i<window.dancers.length; i++){
+       if(window.dancers[i].constructor==makeBlinkyDancer){
+         window.dancers[i].left = 100; 
+         window.dancers[i].setPosition(this.top, this.left)
+       } 
+     }
+
+});
+
+$(".SDLineUp").on("click", function(event){
+     for(var i=0; i<window.dancers.length; i++){
+       if(window.dancers[i].constructor==squareDancer){
+         window.dancers[i].top = 20; 
+         window.dancers[i].setPosition(this.top, this.left)
+       } 
+     }
+
+});
+
+$(".EDLineUp").on("click", function(event){
+     for(var i=0; i<window.dancers.length; i++){
+       if(window.dancers[i].constructor==extraDancer){
+         window.dancers[i].left = 1000; 
+         window.dancers[i].setPosition(this.top, this.left)
+       } 
+     }
+
+});
+
+
+$(".NDLineUp").on("click", function(event){
+     for(var i=0; i<window.dancers.length; i++){
+       if(window.dancers[i].constructor==newDancer){
+         window.dancers[i].top = 600; 
+         window.dancers[i].setPosition(this.top, this.left)
+       } 
+     }
+
+});
+
+
+$("body").on("click", '.squareDancer', function(event){
+     //$(this).css("background-size", "1120px");
+    var topValue =$(this).position().top;
+    var leftValue = $(this).position().left;
+    var maxleft = $(this).position().left+50; //200     
+    var minleft = $(this).position().left-50;  //0
+    var maxtop = $(this).position().top+50;  //200
+    var mintop = $(this).position().top-50;  //0
+
+   // console.log(topValue, leftValue, maxleft,minleft,maxtop,mintop);
+    console.log($(this));
+    var arr = [];
+    var move = function(x){
+    // this.oldStep();
+    // this.$node.toggle();
+     $(x).addClass('animated infinite bounce');
     };
-    line();*/
-    for(var i=0; i<window.dancers.length; i++){
-      if(window.dancers[i].constructor==squareDancer){
-        window.dancers[i].left = 100; 
-        window.dancers[i].setPosition(this.top, this.left)
-      } 
+
+      for(var i=0; i<window.dancers.length; i++){
+        var dancerValue = Math.floor(window.dancers[i].left);
+        var thisValue = Math.floor($(this).position().left);
+        console.log("dancerValue: ", dancerValue);
+        console.log("thisValue: ", thisValue);
+        if(dancerValue === thisValue){
+          window.dancers.splice(window.dancers.length[i], 1);
+        } 
+      }
+
+    //pushes all the dancesr within the radius into arr
+    for(var i =0; i<window.dancers.length; i++){
+      //console.log(topValue, dancers[i].top);
+      //console.log($(this).position().top+4)
+      //console.log(dancers[i].$node.position().left)
+
+      var dancerLeft=dancers[i].$node.position().left;
+      var dancerTop = dancers[i].$node.position().top;
+      var thisLeft = $(this).position().left-1;
+      var thisLeft2 = $(this).position().left+1;
+      var thisTop = $(this).position().top-1;
+      var thisTop2 = $(this).position().top+1;
+
+
+      if( dancerLeft <= maxleft && dancerLeft >= minleft &&
+          dancerTop <= maxtop && dancerTop >= mintop  ){
+          //$(this).addClass('animated infinite bounce');
+        //console.log(dancers[i].left);
+        
+        //move(dancers[i].$node);
+         // dancers[i].move();
+
+          arr.push(dancers[i]);
+      }
+    }
+    console.log(arr);
+    for(var i=0; i<arr.length; i++){      
+        move(arr[i].$node); 
+    }
+    if(arr.length>1){
+      move($(this));
     }
 
+
 });
 
 
+
+
+
+
+
+$("body").on("mouseover", ".newDancer",function(){
+  console.log("in")
+    $(this).css("background-image", "url(\"src/minions/danceTogether.png\")");
 });
+  /*$(function() {
+    $( ".dancer" ).draggable();
+  });*/
+
+
+});
+
+
+
+
+
+
+
+
 
 
